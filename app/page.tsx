@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import {
-  dracula,
-  coldarkDark,
-} from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { FaCog } from "react-icons/fa";
 
 const defaultData = {
