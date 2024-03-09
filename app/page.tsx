@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { FaCog } from "react-icons/fa";
+type DataType = { [key: string]: any };
 
-const defaultData = {
+const defaultData: DataType = {
   name: "John Doe",
   age: 25,
   email: "email@example.com",
@@ -14,7 +15,7 @@ const defaultData = {
 function getQueryParamObject() {
   if (typeof window !== "undefined") {
     const params = new URLSearchParams(window.location.search);
-    let queryParams: { [key: string]: any } = {};
+    let queryParams: DataType = {};
     params.forEach((value, key) => {
       queryParams[key] = decodeURIComponent(value);
     });
