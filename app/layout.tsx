@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-slate-800 ">
+    <html lang="en" style={{ background: "rgb(40, 42, 54)" }}>
       <body className={inter.className}>{children}</body>
     </html>
   );

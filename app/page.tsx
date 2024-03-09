@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import {
+  dracula,
+  coldarkDark,
+} from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { FaCog } from "react-icons/fa";
 
 const defaultData = {
@@ -11,45 +14,55 @@ const defaultData = {
   email: "email@example.com",
 };
 
-export default function Home() {
-  const [data, setData] = useState(defaultData);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState("");
+function getQueryParamObject() {
+  if (typeof window !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
+    let queryParams: { [key: string]: any } = {};
+    params.forEach((value, key) => {
+      queryParams[key] = decodeURIComponent(value);
+    });
+    return queryParams;
+  }
+  return null;
+}
 
-  // On component mount, get data from URL
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const value = params.get("value");
-    if (value) {
-      setData(JSON.parse(decodeURIComponent(value)));
-      setEditValue(decodeURIComponent(value));
-    }
-  }, []);
+export default function Home() {
+  const [isEditing, setIsEditing] = useState(false);
+  const [data, setData] = useState(() => getQueryParamObject() || defaultData);
+  const [editValue, setEditValue] = useState(
+    () => getQueryParamObject() || defaultData
+  );
 
   // Update URL and state when data changes
   useEffect(() => {
-    const encodedValue = encodeURIComponent(JSON.stringify(data));
     const params = new URLSearchParams();
-    params.set("value", encodedValue);
+    for (const key in data) {
+      const encodedValue = encodeURIComponent(data[key]);
+      params.set(key, encodedValue);
+    }
     history.pushState({}, "", `?${params.toString()}`);
   }, [data]);
 
   const handleSave = () => {
-    setData(JSON.parse(editValue));
+    console.log({ editValue });
+    setData(editValue);
     setIsEditing(false);
   };
 
   return (
     <div>
       <FaCog
+        className="absolute top-4 right-4 text-white"
         onClick={() => setIsEditing(!isEditing)}
         style={{ cursor: "pointer", float: "right" }}
       />
       {(isEditing && (
         <>
           <textarea
-            value={editValue}
-            onChange={(e) => setEditValue(e.target.value)}
+            value={JSON.stringify(editValue)}
+            onChange={(e) => {
+              setEditValue(JSON.parse(e.target.value));
+            }}
           />
           <button onClick={handleSave}>Save</button>
         </>
@@ -57,11 +70,7 @@ export default function Home() {
         ""}
 
       <div className="text-sm">
-        <SyntaxHighlighter
-          language="javascript"
-          style={dracula}
-          showLineNumbers
-        >
+        <SyntaxHighlighter language="json" style={dracula}>
           {JSON.stringify(data, null, 2)}
         </SyntaxHighlighter>
       </div>
