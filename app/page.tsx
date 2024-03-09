@@ -69,7 +69,7 @@ export default function Home() {
       )) ||
         ""}
 
-      <div className="text-sm">
+      <div className="text-sm p-3 py-2">
         <SyntaxHighlighter language="json" style={dracula}>
           {JSON.stringify(data, null, 2)}
         </SyntaxHighlighter>
