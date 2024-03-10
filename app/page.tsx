@@ -6,11 +6,7 @@ import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { FaCog } from "react-icons/fa";
 type DataType = { [key: string]: any };
 
-const defaultData: DataType = {
-  name: "John Doe",
-  age: 25,
-  email: "email@example.com",
-};
+const defaultData: DataType = {};
 
 function getQueryParamObject() {
   if (typeof window !== "undefined") {
