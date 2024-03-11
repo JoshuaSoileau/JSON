@@ -46,12 +46,12 @@ export default function Home() {
   return (
     <div>
       <FaCog
-        className="absolute top-4 right-4 text-white"
+        className="fixed top-4 right-4 text-white"
         onClick={() => setIsEditing(!isEditing)}
         style={{ cursor: "pointer", float: "right" }}
       />
       <button
-        className="absolute bottom-0 right-0 p-4 text-white bg-slate-800/80"
+        className="fixed bottom-3 right-3 p-1 text-white bg-slate-800/80"
         onClick={() => window.open(window.location.href, "_blank")}
       >
         <FaShareSquare className="w-4 text-white cursor-pointer" />
