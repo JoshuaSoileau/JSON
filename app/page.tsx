@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { FaCog } from "react-icons/fa";
+import { FaCog, FaShareSquare } from "react-icons/fa";
 type DataType = { [key: string]: any };
 
 const defaultData: DataType = {};
@@ -50,6 +50,12 @@ export default function Home() {
         onClick={() => setIsEditing(!isEditing)}
         style={{ cursor: "pointer", float: "right" }}
       />
+      <button
+        className="absolute bottom-0 right-0 p-4 text-white bg-slate-800/80"
+        onClick={() => window.open(window.location.href, "_blank")}
+      >
+        <FaShareSquare className="w-4 text-white cursor-pointer" />
+      </button>
       {(isEditing && (
         <>
           <textarea
